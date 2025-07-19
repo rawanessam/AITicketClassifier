@@ -1,10 +1,14 @@
 from openai import OpenAI
-
 client = OpenAI(
-  api_key = '',  
-  organization='',
-  project='',
+  api_key = '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',  
+  organization='org-WSgdXdSMQsl2Z01lFHEHwdTD',
+  project='proj_vsQiZvaIgr6U9f0NgD6NBbDi',
 )
+# client = OpenAI(
+#   api_key = 'API-key',  
+#   organization='Oragnization-ID',
+#   project='Project-ID',
+# )
 model = "gpt-4.1-mini"
 
 role = """You are an expert IT support assistant. Your task is to analyze a user-submitted report and classify it into one of four categories:
