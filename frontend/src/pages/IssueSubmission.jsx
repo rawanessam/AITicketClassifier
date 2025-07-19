@@ -46,10 +46,30 @@ export default function IssueSubmission() {
     setIsSubmitting(true)
 
     // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    const form = new FormData()
+  form.append("first_name", formData.firstName)
+  form.append("last_name", formData.lastName)
+  form.append("email", formData.email)
+  form.append("phone", formData.phone)
+  form.append("issue_description", formData.issueDescription)
+  attachments.forEach((file) => {
+    form.append("files", file)
+  })
 
-    setIsSubmitting(false)
+  try {
+    const res = await fetch("http://localhost:8000/submit-ticket", {
+      method: "POST",
+      body: form,
+    })
+
+    const data = await res.json()
+    console.log("Server response:", data)
     setSubmitted(true)
+  } catch (error) {
+    console.error("Submission error:", error)
+  } finally {
+    setIsSubmitting(false)
+  }
   }
 
   if (submitted) {
