@@ -5,6 +5,7 @@ from typing import List, Optional
 import traceback
 import json
 
+
 app = FastAPI()
 
 engine_loaded = True
@@ -68,7 +69,7 @@ async def submit_ticket(
             }
         }
         try:
-            raw_response = prompt_llm(user_input=text)
+            raw_response = prompt_llm(user_input=text) # type: ignore
             parsed = json.loads(raw_response)
             print(parsed)
         except json.JSONDecodeError:
