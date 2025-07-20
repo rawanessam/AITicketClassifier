@@ -13,7 +13,7 @@ client = OpenAI(
 model = "gpt-4.1"
 role = open("/Users/reb9482/Documents/SensryLabs/SenaryLabTask/backend/src/models/prompt-draft.txt",'r').read()
 
-def promt_llm(prompt=role,user_input="",model=model):  
+def prompt_llm(prompt=role,user_input="",model=model):  
   res = client.chat.completions.create(
       model=model,
       messages=[{'role':'system','content':prompt},
