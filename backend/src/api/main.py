@@ -1,7 +1,13 @@
-from fastapi import FastAPI, UploadFile, File, Form
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from typing import List, Optional
-from ..models import promt_llm
+from models import promt_llm
+from openai import OpenAIError
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -28,21 +34,29 @@ async def submit_ticket(
     text: str = Form(...),
     files: Optional[List[UploadFile]] = File(None)
 ):
-    ticket_data = {
-        "ticket_id": ticket_id,
-        "message": "Ticket received",
-        "data": {
-            
-            "first_name": first_name,
-            "last_name": last_name,
-            "email": email,
-            "phone": phone,
-            "issue_description": text,
-            "attachments": [f.filename for f in files] if files else [],
-        }
+    try:
+        ticket_data = {
+            "ticket_id": ticket_id,
+            "message": "Ticket received",
+            "data": {
+                
+                "first_name": first_name,
+                "last_name": last_name,
+                "email": email,
+                "phone": phone,
+                "issue_description": text,
+                "attachments": [f.filename for f in files] if files else [],
+            }
     }
-    print("Received ticket data:")
-    print(ticket_data)
-    response = promt_llm(user_input=ticket_data["data"]["issue_description"])
-    return response
+        print("Received ticket data:")
+        print(ticket_data)
+        try:
+            response = promt_llm(user_input=ticket_data["data"]["issue_description"])
+        except OpenAIError as e:
+            logger.error("OpenAI API error: %s", str(e))
+            raise HTTPException(status_code=502, detail="OpenAI service is temporarily unavailable.")
+        return response
+    except:
+        logger.exception("Unexpected server error")
+        raise HTTPException(status_code=500, detail="Internal server error")
 
