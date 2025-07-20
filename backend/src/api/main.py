@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from typing import List, Optional
 app = FastAPI()
+exec(open("src/models/engine.py").read())
 
 # Enable CORS for frontend to communicate with backend
 app.add_middleware(
@@ -43,5 +44,5 @@ async def submit_ticket(
     }
     print("Received ticket data:")
     print(ticket_data)
-
+    print(prompt_llm(user_input =ticket_data["data"]['issue_description']))
     return ticket_data
