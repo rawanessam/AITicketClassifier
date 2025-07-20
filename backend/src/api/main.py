@@ -4,14 +4,14 @@ from fastapi.responses import JSONResponse
 from typing import List, Optional
 import traceback
 import json
-
-
+from .reponse_validation import validate_llm_output
+from .ticket_db import save_ticket
 app = FastAPI()
 
 engine_loaded = True
 
 try:
-    exec(open("src/models/engine.py").read(), globals())
+    exec(open("/Users/reb9482/Documents/SensryLabs/SenaryLabTask/backend/src/models/engine.py").read(), globals())
     if "prompt_llm" not in globals():
         engine_loaded = False
         raise ImportError("prompt_llm function not found after executing engine.py")
@@ -71,16 +71,20 @@ async def submit_ticket(
         try:
             raw_response = prompt_llm(user_input=text) # type: ignore
             parsed = json.loads(raw_response)
-            print(parsed)
+            
         except json.JSONDecodeError:
             traceback.print_exc()
             raise HTTPException(status_code=502, detail="Invalid JSON from LLM.")
         except Exception:
             traceback.print_exc()
             raise HTTPException(status_code=502, detail="LLM call failed.")
-
+        try: 
+            parsed = validate_llm_output(parsed)
+        except ValueError:
+            raise HTTPException(status_code=504, detail="LLM malformed output")
         # print("Received ticket data:")
         # print(ticket_data)
+        save_ticket(ticket_id, ticket_data,parsed)
         return JSONResponse(content=parsed)
     except HTTPException as e:
         raise e
