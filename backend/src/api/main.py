@@ -12,9 +12,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+@app.get("/")
+def root():
+    return {"message": "API is running"}
+
 
 @app.post("/submit-ticket")
 async def submit_ticket(
+    ticket_id: str = Form(...),
     first_name: str = Form(...),
     last_name: str = Form(...),
     email: str = Form(...),
@@ -23,9 +28,11 @@ async def submit_ticket(
     files: Optional[List[UploadFile]] = File(None)
 ):
     # Example: store or process ticket
-    return {
+    ticket_data = {
+        "ticket_id": ticket_id,
         "message": "Ticket received",
         "data": {
+            
             "first_name": first_name,
             "last_name": last_name,
             "email": email,
@@ -34,3 +41,7 @@ async def submit_ticket(
             "attachments": [f.filename for f in files] if files else [],
         }
     }
+    print("Received ticket data:")
+    print(ticket_data)
+
+    return ticket_data

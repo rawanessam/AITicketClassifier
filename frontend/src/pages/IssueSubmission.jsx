@@ -20,6 +20,8 @@ export default function IssueSubmission() {
   const [attachments, setAttachments] = useState([])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [ticketId, setTicketId] = useState("")
+ 
 
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -44,16 +46,20 @@ export default function IssueSubmission() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
+    const generatedId = "IT-" + Math.random().toString(36).substr(2, 8).toUpperCase()
+    setTicketId(generatedId)
 
     // Simulate API call
     const form = new FormData()
+  form.append("ticket_id", generatedId)
   form.append("first_name", formData.firstName)
   form.append("last_name", formData.lastName)
   form.append("email", formData.email)
   form.append("phone", formData.phone)
   form.append("issue_description", formData.issueDescription)
   attachments.forEach((file) => {
-    form.append("files", file)
+  form.append("files", file)
+
   })
 
   try {
@@ -88,9 +94,10 @@ export default function IssueSubmission() {
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center">
+            
             <div className="bg-gray-100 p-3 rounded-lg mb-4">
               <p className="text-sm text-gray-600">Ticket ID</p>
-              <p className="font-mono font-bold text-lg">#IT-{Math.random().toString(36).substr(2, 8).toUpperCase()}</p>
+              <p className="font-mono font-bold text-lg">{ticketId}</p>
             </div>
             <Button
               onClick={() => {
