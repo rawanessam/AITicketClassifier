@@ -1,5 +1,5 @@
 Error Handling
-Add environment variables for API call --done
+Add environment variables for API call
 input validation and rate limit
 write unit tests
 dockerization

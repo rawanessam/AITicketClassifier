@@ -31,11 +31,12 @@ async def submit_ticket(
     last_name: str = Form(...),
     email: str = Form(...),
     phone: Optional[str] = Form(None),
-    text: str = Form(...),
+    issue_description: str = Form(...),
     files: Optional[List[UploadFile]] = File(None)
 ):
     try:
-        ticket_data = {
+        # Example: store or process ticket
+    ticket_data = {
             "ticket_id": ticket_id,
             "message": "Ticket received",
             "data": {
@@ -44,19 +45,13 @@ async def submit_ticket(
                 "last_name": last_name,
                 "email": email,
                 "phone": phone,
-                "issue_description": text,
+                "issue_description": issue_description,
                 "attachments": [f.filename for f in files] if files else [],
             }
     }
-        print("Received ticket data:")
-        print(ticket_data)
-        try:
-            response = promt_llm(user_input=ticket_data["data"]["issue_description"])
-        except OpenAIError as e:
-            logger.error("OpenAI API error: %s", str(e))
-            raise HTTPException(status_code=502, detail="OpenAI service is temporarily unavailable.")
-        return response
-    except:
-        logger.exception("Unexpected server error")
-        raise HTTPException(status_code=500, detail="Internal server error")
+    print("Received ticket data:")
+    print(ticket_data)
+    response = promt_llm(user_input=ticket_data["data"]["issue_description"])
+    return response
 
+    return ticket_data
