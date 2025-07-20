@@ -56,7 +56,7 @@ export default function IssueSubmission() {
   form.append("last_name", formData.lastName)
   form.append("email", formData.email)
   form.append("phone", formData.phone)
-  form.append("issue_description", formData.issueDescription)
+  form.append("text", formData.issueDescription)
   attachments.forEach((file) => {
   form.append("files", file)
 

@@ -25,7 +25,7 @@ async def submit_ticket(
     last_name: str = Form(...),
     email: str = Form(...),
     phone: Optional[str] = Form(None),
-    issue_description: str = Form(...),
+    text: str = Form(...),
     files: Optional[List[UploadFile]] = File(None)
 ):
     # Example: store or process ticket
@@ -38,7 +38,7 @@ async def submit_ticket(
             "last_name": last_name,
             "email": email,
             "phone": phone,
-            "issue_description": issue_description,
+            "issue_description": text,
             "attachments": [f.filename for f in files] if files else [],
         }
     }
