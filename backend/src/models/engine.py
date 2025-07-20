@@ -1,8 +1,18 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+import json 
+
 
 load_dotenv()
+#prompt_path = json.loads()
+config = os.getenv("CONFIG_FILE")
+src_path = os.getcwd()
+config_dict = json.loads(open(f"{src_path}/{config}").read())
+prompt_path = config_dict["promt_file"]
+#os.chdir("..")
+
+    # Get the new current working directory
 
 client = OpenAI(
   api_key = os.getenv("OPENAI_API_KEY"),
@@ -11,8 +21,7 @@ client = OpenAI(
   timeout= 30,
 )
 model = "gpt-4.1"
-role = open("/Users/reb9482/Documents/SensryLabs/SenaryLabTask/backend/src/models/prompt-draft.txt",'r').read()
-
+role = open(f"{src_path}/{prompt_path}",'r').read()
 def prompt_llm(prompt=role,user_input="",model=model):  
   res = client.chat.completions.create(
       model=model,

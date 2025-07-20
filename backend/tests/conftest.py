@@ -8,7 +8,7 @@ from fastapi.testclient import TestClient
 # Add src directory to path for imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "/Users/reb9482/Documents/SensryLabs/SenaryLabTask/backend/src")))
 
-from api.main import app as fastapi_app, engine_loaded
+from api.main import app as fastapi_app, engine_loaded # type: ignore
 
 @pytest.fixture
 def client():

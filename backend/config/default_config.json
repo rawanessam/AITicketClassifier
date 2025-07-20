@@ -1,0 +1,5 @@
+{
+"llm_prompting_script":"src/models/engine.py",
+"promt_file":"src/models/prompt-draft.txt",
+"DB_path":"backend/database/ticket_db.json"
+}

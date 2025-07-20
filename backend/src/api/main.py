@@ -4,14 +4,21 @@ from fastapi.responses import JSONResponse
 from typing import List, Optional
 import traceback
 import json
+from dotenv import load_dotenv
 from .reponse_validation import validate_llm_output
 from .ticket_db import save_ticket
-app = FastAPI()
+import os
 
+app = FastAPI()
+load_dotenv()
 engine_loaded = True
+config = os.getenv("CONFIG_FILE")
+src_path = os.getcwd()
+config_dict = json.loads(open(f"{src_path}/{config}").read())
+prompt_script = config_dict["llm_prompting_script"]
 
 try:
-    exec(open("/Users/reb9482/Documents/SensryLabs/SenaryLabTask/backend/src/models/engine.py").read(), globals())
+    exec(open(f"{src_path}/{prompt_script}").read(), globals())
     if "prompt_llm" not in globals():
         engine_loaded = False
         raise ImportError("prompt_llm function not found after executing engine.py")
