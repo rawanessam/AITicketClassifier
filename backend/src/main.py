@@ -1,21 +1,7 @@
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from models import prompt_llm
+from api import app
+from fastapi import  UploadFile, File, Form
 from typing import List, Optional
-app = FastAPI()
-
-# Enable CORS for frontend to communicate with backend
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # adjust port if needed
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-@app.get("/")
-def root():
-    return {"message": "API is running"}
-
 
 @app.post("/submit-ticket")
 async def submit_ticket(
@@ -43,5 +29,5 @@ async def submit_ticket(
     }
     print("Received ticket data:")
     print(ticket_data)
-
+    
     return ticket_data
