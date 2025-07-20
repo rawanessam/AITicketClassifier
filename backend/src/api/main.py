@@ -2,12 +2,6 @@ from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from typing import List, Optional
-from ..models import promt_llm
-from openai import OpenAIError
-import logging
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -34,24 +28,21 @@ async def submit_ticket(
     issue_description: str = Form(...),
     files: Optional[List[UploadFile]] = File(None)
 ):
-    try:
-        # Example: store or process ticket
+    # Example: store or process ticket
     ticket_data = {
-            "ticket_id": ticket_id,
-            "message": "Ticket received",
-            "data": {
-                
-                "first_name": first_name,
-                "last_name": last_name,
-                "email": email,
-                "phone": phone,
-                "issue_description": issue_description,
-                "attachments": [f.filename for f in files] if files else [],
-            }
+        "ticket_id": ticket_id,
+        "message": "Ticket received",
+        "data": {
+            
+            "first_name": first_name,
+            "last_name": last_name,
+            "email": email,
+            "phone": phone,
+            "issue_description": issue_description,
+            "attachments": [f.filename for f in files] if files else [],
+        }
     }
     print("Received ticket data:")
     print(ticket_data)
-    response = promt_llm(user_input=ticket_data["data"]["issue_description"])
-    return response
 
     return ticket_data
