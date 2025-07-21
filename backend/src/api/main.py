@@ -14,14 +14,21 @@ load_dotenv()
 engine_loaded = True
 config = os.getenv("CONFIG_FILE")
 src_path = os.getcwd()
+try:
+   config_dict = json.loads(open(f"{config}").read())
 
-config_dict = json.loads(open(f"{config}").read())
+except:
+    config_dict = json.loads(open(f"config/docker_config.json").read())
+
 
 prompt_script = config_dict["llm_prompting_script"]
+print(prompt_script)
 try:
-    
-    exec(open(f"{prompt_script}").read(), globals())
-    
+    try:
+        exec(open(f"{prompt_script}").read(), globals())
+    except:
+        #print({src_path}/{prompt_script})
+        exec(open(f"{prompt_script}").read(), globals())
     if "prompt_llm" not in globals():
         engine_loaded = False
         raise ImportError("prompt_llm function not found after executing engine.py")
