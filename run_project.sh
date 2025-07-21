@@ -1,7 +1,7 @@
 #!/bin/bash
 ## Installing dependancies
 echo "Installing dependancies"
-pip install -r requitements.txt
+pip install -r requirements.txt
 # Start FastAPI backend
 echo "Starting FastAPI backend..."
 uvicorn backend.src.api.main:app --host 0.0.0.0 --port 8000 --reload &
