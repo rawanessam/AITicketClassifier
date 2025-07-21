@@ -78,6 +78,7 @@ Backend unit tests are located in the `/backend/tests/` folder.
 Run with:
 
 ```bash
+cd `backend`
 pytest
 ```
 
@@ -149,6 +150,25 @@ The response from the OpenAI API is expected to be in this JSON format:
   "urgency_score": 3
 }
 ```
+---
+
+## 🧪 Input & Output Validation
+
+### ✅ Input Validation
+
+- All ticket submission fields marked as required **must** be provided.
+- The `email` field is validated to ensure it follows a standard email format.
+- Optional fields like `phone` and file attachments are gracefully handled if missing.
+
+### 🧠 LLM Output Validation
+
+The response from the language model is validated to ensure consistent structure and value constraints:
+
+- Must be a JSON object with the following keys:
+  - `feedback_text` (string)
+  - `category` (string)
+  - `urgency_score` (integer between 1 and 5 or null)
+- If any required key is missing or the types do not match expectations, a validation error is raised before proceeding.
 ---
 
 ## 🎁 Bonus Features
