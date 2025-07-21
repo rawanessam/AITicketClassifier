@@ -10,6 +10,26 @@ Built with:
 
 ---
 
+## 📖 Overview
+
+The application enables users to submit support tickets via a web form. The submitted data (name, email, issue description, and optional attachments) is sent to a FastAPI backend endpoint. The backend then forwards the ticket text to a custom prompting script that uses OpenAI's API. The response classifies the issue into one of the following categories:
+
+- `Bug Report`
+- `Feature Request`
+- `Praise/Positive Feedback`
+- `General Inquiry`
+
+Additionally, the model assigns an  urgency score between 1 and 5 to bug reports based on this scheme:
+`1: Not Urgent`
+`2: Low`
+`3: Medium`
+`4: High`
+`5: Critical`
+Categories other than Bug report receive an urgency of none.
+
+---
+
+
 ## 📆 Features
 
 - Submit support tickets with attachments
@@ -29,6 +49,23 @@ Built with:
 - Node.js + npm
 - Docker & Docker Compose (optional)
 
+---
+
+## 🔐 Environment Configuration
+
+Before running, **you must set up your environment variables** in a `.env` file in the root directory. The file should include:
+
+- OpenAI credentials
+- Path to the config file (either `default_config.json` or `docker_config.json`)
+
+Use `.env.example` as a template:
+
+```env
+OPENAI_API_KEY=your_api_key
+OPENAI_ORG_ID=your_org_id
+OPENAI_PROJECT_ID=your_project_id
+CONFIG_PATH=backend/config/default_config.json  # or docker_config.json if using Docker
+```
 ---
 
 ## 🚀 Running the Project
@@ -51,23 +88,7 @@ docker compose up --build
 
 This spins up both services in containers with volumes and port mappings configured.
 
----
-
-## 🔐 Environment Configuration
-
-Before running, **you must set up your environment variables** in a `.env` file in the root directory. The file should include:
-
-- OpenAI credentials
-- Path to the config file (either `default_config.json` or `docker_config.json`)
-
-Use `.env.example` as a template:
-
-```env
-OPENAI_API_KEY=your_api_key
-OPENAI_ORG_ID=your_org_id
-OPENAI_PROJECT_ID=your_project_id
-CONFIG_PATH=backend/config/default_config.json  # or docker_config.json if using Docker
-```
+### ❗ Make sure to configure environment variables in .env before running ❗
 
 ---
 
@@ -107,7 +128,6 @@ SenaryLabTask/
 │   │   ├── models/ ### Prompt and Code for Openai API
 │   ├── config/ ### Configuration files
 │   │   ├── default_config.json 
-│   │   ├── docker_config.json
 │   ├── tests/ ##backend unit tests
 │   │   ├──  conftest.py  ##Test Fast API and OpenAI configuration
 │   │   ├── test_main.py ## Multiple test case with different LL outputs
