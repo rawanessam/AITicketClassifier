@@ -11,7 +11,7 @@ src_path = os.getcwd()
 try:
   config_dict = json.loads(open(f"{src_path}/{config}").read())
 except:
-  config_dict = json.loads(open(f"App/config/docker_config").read())
+  config_dict = json.loads(open(f"config/docker_config.json").read())
 prompt_path = config_dict["promt_file"]
 #os.chdir("..")
 

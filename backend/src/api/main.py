@@ -18,16 +18,16 @@ try:
    config_dict = json.loads(open(f"{config}").read())
 
 except:
-    config_dict = json.loads(open(f"App/config/docker_config").read())
+    config_dict = json.loads(open(f"config/docker_config.json").read())
 
 
 prompt_script = config_dict["llm_prompting_script"]
-
+print(prompt_script)
 try:
     try:
         exec(open(f"{prompt_script}").read(), globals())
     except:
-        print({src_path}/{prompt_script})
+        #print({src_path}/{prompt_script})
         exec(open(f"{prompt_script}").read(), globals())
     if "prompt_llm" not in globals():
         engine_loaded = False

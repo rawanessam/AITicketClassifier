@@ -1,5 +1,5 @@
 # Development Dockerfile for frontend
-FROM node:18
+FROM node:20
 
 
 WORKDIR /frontend
@@ -9,7 +9,7 @@ RUN node -v
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Copy source code
 COPY . .
@@ -18,4 +18,4 @@ COPY . .
 EXPOSE 5173
 
 # Start development server
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+#CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
