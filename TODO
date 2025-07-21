@@ -1,6 +1,0 @@
-Error Handling --done
-Add environment variables for API call --done
-input validation and rate limit  --done 1/2
-write unit tests --done
-add example.env --done
-dockerization

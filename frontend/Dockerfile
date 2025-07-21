@@ -1,7 +1,9 @@
 # Development Dockerfile for frontend
-FROM node:18-alpine
+FROM node:20-slim
+
 
 WORKDIR /app
+RUN node -v
 
 # Copy package files
 COPY package*.json ./
