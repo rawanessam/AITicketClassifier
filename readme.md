@@ -30,7 +30,7 @@ Categories other than Bug report receive an urgency of none.
 ---
 
 
-## 📆 Features
+## 🛠️ Features
 
 - Submit support tickets with attachments
 - OpenAI-powered classification (category + urgency score)
@@ -124,8 +124,8 @@ use this command template:
 SenaryLabTask/
 ├── backend/
 │   ├── src/
-│   │   ├── api/  ###Contains fastAPI component
-│   │   ├── models/ ### Prompt and Code for Openai API
+│   │   ├── api/  ###Contains fastAPI component & Response Validation
+│   │   ├── models/ ### Prompt and Code for Openai API & Prompt Text
 │   ├── config/ ### Configuration files
 │   │   ├── default_config.json 
 │   ├── tests/ ##backend unit tests
