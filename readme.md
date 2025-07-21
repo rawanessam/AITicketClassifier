@@ -73,7 +73,7 @@ CONFIG_PATH=backend/config/default_config.json  # or docker_config.json if using
 There are **two ways** to run this project:
 
 ### 🟢 Option 1: Using the Bash Script
-
+1- Set the CONFIG_FILE variable in your env to "backend/config/default_config.json"
 ```bash
 ./run_project.sh
 ```
@@ -81,7 +81,9 @@ There are **two ways** to run this project:
 This script starts both the FastAPI backend and the Vite React frontend from the project root.
 
 ### 🐳 Option 2: Using Docker Compose
+1- Set the CONFIG_FILE variable in your env to "config/docker_config.json"
 
+2- Build docker container
 ```bash
 docker compose up --build
 ```
@@ -127,7 +129,8 @@ SenaryLabTask/
 │   │   ├── api/  ###Contains fastAPI component & Response Validation
 │   │   ├── models/ ### Prompt and Code for Openai API & Prompt Text
 │   ├── config/ ### Configuration files
-│   │   ├── default_config.json 
+│   │   ├── default_config.json  ##use with local run
+│   │   ├── docker_config.json  ##use with docker build
 │   ├── tests/ ##backend unit tests
 │   │   ├──  conftest.py  ##Test Fast API and OpenAI configuration
 │   │   ├── test_main.py ## Multiple test case with different LL outputs
