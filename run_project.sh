@@ -10,6 +10,9 @@ BACKEND_PID=$!
 # Start React frontend
 echo "Starting React frontend..."
 cd frontend
+rm -rf node_modules package-lock.json
+npm cache clean --force
+npm install --legacy-peer-deps
 npm run dev &
 FRONTEND_PID=$!
 
