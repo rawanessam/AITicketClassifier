@@ -15,15 +15,19 @@ engine_loaded = True
 config = os.getenv("CONFIG_FILE")
 src_path = os.getcwd()
 try:
-    config_dict = json.loads(open(f"{src_path}/{config}").read())
+   config_dict = json.loads(open(f"{config}").read())
+
 except:
     config_dict = json.loads(open(f"App/config/docker_config").read())
+
+
 prompt_script = config_dict["llm_prompting_script"]
 
 try:
     try:
-        exec(open(f"{src_path}/{prompt_script}").read(), globals())
+        exec(open(f"{prompt_script}").read(), globals())
     except:
+        print({src_path}/{prompt_script})
         exec(open(f"{prompt_script}").read(), globals())
     if "prompt_llm" not in globals():
         engine_loaded = False
