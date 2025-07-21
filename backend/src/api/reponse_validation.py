@@ -20,8 +20,8 @@ def validate_llm_output(llm_output: str) -> Dict[str, Any]:
     if not isinstance(parsed["category"], str):
         raise ValueError("category must be a string.")
 
-    if parsed["urgency_score"] is not None and not isinstance(parsed["urgency_score"], int):
-        raise ValueError("urgency_score must be an integer or null.")
+    if parsed["urgency_score"] is not None and not isinstance(parsed["urgency_score"], int) and 1<= parsed["urgency_score"]<=5 :
+        raise ValueError("urgency_score must be an integer between 1 and 5 or null.")
 
     return llm_output
 

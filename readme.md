@@ -103,17 +103,37 @@ use this command template:
 SenaryLabTask/
 ├── backend/
 │   ├── src/
-│   │   ├── api/
-│   │   ├── models/
-│   │   ├── services/
-│   ├── config/
-│   ├── database/
-│   └── tests/
+│   │   ├── api/  ###Contains fastAPI component
+│   │   ├── models/ ### Prompt and Code for Openai API
+│   ├── config/ ### Configuration files
+│   │   ├── default_config.json 
+│   │   ├── docker_config.json
+│   ├── tests/ ##backend unit tests
+│   │   ├──  conftest.py  ##Test Fast API and OpenAI configuration
+│   │   ├── test_main.py ## Multiple test case with different LL outputs
+│   └── Dockerfile/
+
 ├── frontend/
-│   ├── src/
+│   ├── src/ 
+│   │   ├── components/  
+│   │   ├── pages/
+│   │   ├── utils/
+│   │   ├── App.css
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   ├── main.jsx
+│   ├── Dockerfile
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   ├── vite.config.mjs
+
 ├── run_project.sh
 ├── docker-compose.yml
 ├── .env.example
+└── requirements.txt
 ```
 
 ---
@@ -129,8 +149,18 @@ The response from the OpenAI API is expected to be in this JSON format:
   "urgency_score": 3
 }
 ```
-
 ---
+
+## 🎁 Bonus Features
+
+This project includes a few enhanced capabilities to improve model behavior and usability:
+
+- **🎯 Fine-Tuned Few-Shot Prompting**: The LLM is prompted using structured few-shot examples to improve classification reliability across various ticket categories and urgency levels.
+- **📁 JSON Ticket History**: All submitted tickets, along with their LLM-generated responses, are stored in a JSON file This enables:
+  - Easy auditing of LLM outputs
+  - Fine-tuning data collection
+  - Offline analysis and reporting
+-------
 
 ## 📢 Feedback
 
