@@ -157,7 +157,7 @@ The response from the OpenAI API is expected to be in this JSON format:
 - All ticket submission fields marked as required **must** be provided.
 - The `email` field is validated to ensure it follows a standard email format.
 - Optional fields like `phone` and file attachments are gracefully handled if missing.
-
+---
 ### 🧠 LLM Output Validation
 
 The response from the language model is validated to ensure consistent structure and value constraints:
@@ -167,6 +167,14 @@ The response from the language model is validated to ensure consistent structure
   - `category` (string)
   - `urgency_score` (integer between 1 and 5 or null)
 - If any required key is missing or the types do not match expectations, a validation error is raised before proceeding.
+---
+## 🛡️ Model & Engine Error Handling
+
+The backend includes robust error handling to ensure a smooth user experience even when issues occur with the language model or configuration:
+
+- If the `prompt_llm` function fails to load (due to misconfigured script path or missing definition), the API returns a `503 Service Unavailable` status and blocks further ticket submission attempts until resolved.
+- If the LLM returns malformed JSON or an error during execution, the system catches the issue and responds with appropriate HTTP error codes (`502` for model errors, `504` for invalid output).
+- All unexpected runtime errors are logged via `traceback` and surfaced as `500 Internal Server Error` to aid debugging without exposing sensitive information.
 ---
 ## 🎁 Bonus Features
 
