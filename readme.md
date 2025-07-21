@@ -103,7 +103,7 @@ pytest
 ```
 
 ---
-##  Reuesting API Directly 
+## 📡 Requesting the API Directly
 
 To send requests to Backend 
 
@@ -205,8 +205,13 @@ This project includes a few enhanced capabilities to improve model behavior and 
   - Easy auditing of LLM outputs
   - Fine-tuning data collection
   - Offline analysis and reporting
--------
-
+---
+## 🔭 Future Improvements 
+- Add user login/authentication
+- Database integration (PostgreSQL)
+- Admin dashboard for ticket management
+- Add user limits to prevent spam
+---
 ## 📢 Feedback
 
 For questions or suggestions, feel free to open an issue or reach out.
