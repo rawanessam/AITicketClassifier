@@ -8,10 +8,9 @@ load_dotenv()
 #prompt_path = json.loads()
 config = os.getenv("CONFIG_FILE")
 src_path = os.getcwd()
-try:
-  config_dict = json.loads(open(f"{src_path}/{config}").read())
-except:
-  config_dict = json.loads(open(f"config/docker_config.json").read())
+
+config_dict = json.loads(open(f"{config}").read())
+
 prompt_path = config_dict["promt_file"]
 #os.chdir("..")
 
@@ -24,10 +23,9 @@ client = OpenAI(
   timeout= 30,
 )
 model = "gpt-4.1"
-try:
-  role = open(f"{src_path}/{prompt_path}",'r').read()
-except:
-  role = open(f"{prompt_path}",'r').read()
+
+role = open(f"{prompt_path}",'r').read()
+
 def prompt_llm(prompt=role,user_input="",model=model):  
   res = client.chat.completions.create(
       model=model,
