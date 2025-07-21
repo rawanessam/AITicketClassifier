@@ -91,6 +91,8 @@ docker compose up --build
 This spins up both services in containers with volumes and port mappings configured.
 
 ### ❗ Make sure to configure environment variables in .env before running ❗
+Either way you react app shouold start on port: 5173
+![Cool UI](./assets/ui.png)
 ## Dashboard
 Dashboarrd runs seprately from the project:
 1- Go to Dashboard directory: 
@@ -102,6 +104,7 @@ cd dashboard
 bash run_dashboard.sh
 ```
 ### ❗ Make sure DB_path in default_config of the configuration you're using exists and has data before running the dashboard ❗
+![Cool Dashboard](./assets/dashboard.png)
 ---
 
 ## 🧲 Running Tests
