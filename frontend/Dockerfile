@@ -1,8 +1,8 @@
 # Development Dockerfile for frontend
-FROM node:20-slim
+FROM node:18
 
 
-WORKDIR /app
+WORKDIR /frontend
 RUN node -v
 
 # Copy package files
