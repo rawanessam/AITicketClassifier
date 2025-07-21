@@ -1,4 +1,4 @@
-# 🛠️ SenaryLabTask: AI-Powered Support Ticket Classifier
+# AI-Powered Support Ticket Classifier
 
 A full-stack web application that enables users to submit support tickets, which are then analyzed using OpenAI's API to classify their content and assess urgency.
 
@@ -41,9 +41,9 @@ Categories other than Bug report receive an urgency of none.
 UI 
 ---
 
-## ⚙️ Setup Instructions
+## Setup Instructions
 
-### 📁 Prerequisites
+### Prerequisites
 
 - Python 3.10+
 - Node.js + npm
@@ -51,7 +51,7 @@ UI
 
 ---
 
-## 🔐 Environment Configuration
+## Environment Configuration
 
 Before running, **you must set up your environment variables** in a `.env` file in the root directory. The file should include:
 
@@ -68,11 +68,11 @@ CONFIG_PATH=backend/config/default_config.json  # or docker_config.json if using
 ```
 ---
 
-## 🚀 Running the Project
+## Running the Project
 
 There are **two ways** to run this project:
 
-### 🟢 Option 1: Using the Bash Script
+### Option 1: Using the Bash Script
 1- Set the CONFIG_FILE variable in your env to "backend/config/default_config.json"
 ```bash
 ./run_project.sh
@@ -80,7 +80,7 @@ There are **two ways** to run this project:
 
 This script starts both the FastAPI backend and the Vite React frontend from the project root.
 
-### 🐳 Option 2: Using Docker Compose
+### Option 2: Using Docker Compose
 1- Set the CONFIG_FILE variable in your env to "config/docker_config.json"
 
 2- Build docker container
@@ -107,7 +107,7 @@ bash run_dashboard.sh
 ![Cool Dashboard](./assets/dashboard.png)
 ---
 
-## 🧲 Running Tests
+## Running Tests
 
 Backend unit tests are located in the `/backend/tests/` folder.
 
@@ -118,7 +118,7 @@ pytest
 ```
 
 ---
-## 📡 Requesting the API Directly
+## Requesting the API Directly
 
 To send requests to Backend 
 
@@ -133,7 +133,7 @@ use this command template:
   -F "phone=+971500000000" \
   -F "text= issue description"
 ```
-## 📁 Project Structure
+## Project Structure
 
 ```
 SenaryLabTask/
@@ -174,7 +174,7 @@ SenaryLabTask/
 
 ---
 
-## ✨ Sample LLM Output Format
+## Sample LLM Output Format
 
 The response from the OpenAI API is expected to be in this JSON format:
 
@@ -186,15 +186,15 @@ The response from the OpenAI API is expected to be in this JSON format:
 }
 ```
 ---
-## 🧪 Input & Output Validation
+## Input & Output Validation
 
-### ✅ Input Validation
+### Input Validation
 
 - All ticket submission fields marked as required **must** be provided.
 - The `email` field is validated to ensure it follows a standard email format.
 - Optional fields like `phone` and file attachments are gracefully handled if missing.
 ---
-### 🧠 LLM Output Validation
+### LLM Output Validation
 
 The response from the language model is validated to ensure consistent structure and value constraints:
 
@@ -204,7 +204,7 @@ The response from the language model is validated to ensure consistent structure
   - `urgency_score` (integer between 1 and 5 or null)
 - If any required key is missing or the types do not match expectations, a validation error is raised before proceeding.
 ---
-## 🛡️ Model & Engine Error Handling
+## Model & Engine Error Handling
 
 The backend includes robust error handling to ensure a smooth user experience even when issues occur with the language model or configuration:
 
@@ -212,22 +212,23 @@ The backend includes robust error handling to ensure a smooth user experience ev
 - If the LLM returns malformed JSON or an error during execution, the system catches the issue and responds with appropriate HTTP error codes (`502` for model errors, `504` for invalid output).
 - All unexpected runtime errors are logged via `traceback` and surfaced as `500 Internal Server Error` to aid debugging without exposing sensitive information.
 ---
-## 🎁 Bonus Features
+## Bonus Features
 
 This project includes a few enhanced capabilities to improve model behavior and usability:
 
-- **🎯 Fine-Tuned Few-Shot Prompting**: The LLM is prompted using structured few-shot examples to improve classification reliability across various ticket categories and urgency levels.
-- **📁 JSON Ticket History**: All submitted tickets, along with their LLM-generated responses, are stored in a JSON file This enables:
+- **Fine-Tuned Few-Shot Prompting**: The LLM is prompted using structured few-shot examples to improve classification reliability across various ticket categories and urgency levels.
+- **JSON Ticket History**: All submitted tickets, along with their LLM-generated responses, are stored in a JSON file This enables:
   - Easy auditing of LLM outputs
   - Fine-tuning data collection
   - Offline analysis and reporting
+- **Simple Dashboard**: Provides a highlevel overview of submitted tickets
 ---
-## 🔭 Future Improvements 
+## Future Improvements 
 - Add user login/authentication
 - Database integration (PostgreSQL)
 - Admin dashboard for ticket management
 - Add user limits to prevent spam
 ---
-## 📢 Feedback
+## Feedback
 
 For questions or suggestions, feel free to open an issue or reach out.
