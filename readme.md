@@ -38,7 +38,7 @@ Categories other than Bug report receive an urgency of none.
 - Upload and parse text input
 - Store ticket and LLM response mapping
 - JSON-based configuration and ticket database
-
+UI 
 ---
 
 ## ⚙️ Setup Instructions
@@ -91,7 +91,17 @@ docker compose up --build
 This spins up both services in containers with volumes and port mappings configured.
 
 ### ❗ Make sure to configure environment variables in .env before running ❗
-
+## Dashboard
+Dashboarrd runs seprately from the project:
+1- Go to Dashboard directory: 
+```bash
+cd dashboard
+```
+2- Run run_dashboard,sh 
+```bash
+bash run_dashboard.sh
+```
+### ❗ Make sure DB_path in default_config of the configuration you're using exists and has data before running the dashboard ❗
 ---
 
 ## 🧲 Running Tests
